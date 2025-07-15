@@ -1,0 +1,11 @@
+# Task ID: 3
+# Title: Supabase 后端服务配置
+# Status: pending
+# Dependencies: 1 (Not found)
+# Priority: high
+# Description: 配置 Supabase 项目，设置数据库和认证
+# Details:
+创建 Supabase 项目，配置 PostgreSQL 数据库。设置用户认证（邮箱/密码、社交登录）。创建数据库表结构：用户表、收藏夹表、灵感图谱表、社区内容表等。
+
+# Test Strategy:
+验证 Supabase 连接正常，用户认证流程工作正常，数据库表创建成功。

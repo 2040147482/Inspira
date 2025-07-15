@@ -1,0 +1,11 @@
+# Task ID: 2
+# Title: UI 组件库和设计系统设置
+# Status: done
+# Dependencies: 1 (Not found)
+# Priority: high
+# Description: 集成 shadcn/ui 组件库，建立设计系统
+# Details:
+安装和配置 shadcn/ui 组件库，创建主题配置，设计通用布局组件（Header、Footer、Navigation）。建立颜色系统、字体系统和间距规范。
+
+# Test Strategy:
+验证组件库正确集成，主题样式生效，通用组件可正常渲染。

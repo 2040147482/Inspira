@@ -1,0 +1,11 @@
+# Task ID: 14
+# Title: 创意改写器功能开发
+# Status: pending
+# Dependencies: 4 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发内容多风格改写功能
+# Details:
+创建创意改写器页面，支持多种改写方向和平台语气。实现一稿多写、版本对比、继续加工功能。集成与其他工具的联动机制。
+
+# Test Strategy:
+验证改写功能准确，风格差异明显，版本管理正确。

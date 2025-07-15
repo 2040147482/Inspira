@@ -1,0 +1,11 @@
+# Task ID: 16
+# Title: 灵感图谱可视化功能开发
+# Status: pending
+# Dependencies: 5 (Not found), 10 (Not found)
+# Priority: low
+# Description: 开发灵感脑图可视化管理工具
+# Details:
+创建灵感图谱页面，实现拖拽式脑图编辑。支持 AI 自动延展、手动编辑、节点类型区分。实现保存版本、导出功能、工具联动。
+
+# Test Strategy:
+验证脑图功能正常，交互体验良好，数据保存正确。

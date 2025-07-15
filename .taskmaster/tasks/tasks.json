@@ -1,0 +1,253 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": "1",
+        "title": "项目基础架构搭建",
+        "description": "搭建 Next.js 项目基础架构，配置开发环境",
+        "status": "done",
+        "priority": "high",
+        "dependencies": [],
+        "details": "使用 Next.js 14 App Router 创建项目，配置 TypeScript、ESLint、Prettier、Tailwind CSS。设置项目目录结构，配置环境变量模板。",
+        "testStrategy": "验证项目能够正常启动，开发服务器运行正常，TypeScript 类型检查通过。",
+        "subtasks": []
+      },
+      {
+        "id": "2",
+        "title": "UI 组件库和设计系统设置",
+        "description": "集成 shadcn/ui 组件库，建立设计系统",
+        "status": "done",
+        "priority": "high",
+        "dependencies": ["1"],
+        "details": "安装和配置 shadcn/ui 组件库，创建主题配置，设计通用布局组件（Header、Footer、Navigation）。建立颜色系统、字体系统和间距规范。",
+        "testStrategy": "验证组件库正确集成，主题样式生效，通用组件可正常渲染。",
+        "subtasks": []
+      },
+      {
+        "id": "3",
+        "title": "Supabase 后端服务配置",
+        "description": "配置 Supabase 项目，设置数据库和认证",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": ["1"],
+        "details": "创建 Supabase 项目，配置 PostgreSQL 数据库。设置用户认证（邮箱/密码、社交登录）。创建数据库表结构：用户表、收藏夹表、灵感图谱表、社区内容表等。",
+        "testStrategy": "验证 Supabase 连接正常，用户认证流程工作正常，数据库表创建成功。",
+        "subtasks": []
+      },
+      {
+        "id": "4",
+        "title": "OpenAI API 集成",
+        "description": "集成 OpenAI API，实现 AI 内容生成功能",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": ["1", "3"],
+        "details": "配置 OpenAI API 密钥，创建 API 路由处理 AI 请求。实现文本生成基础功能，包括 prompt 模板管理、响应处理、错误处理。设置请求限制和缓存机制。",
+        "testStrategy": "验证 OpenAI API 连接正常，能够成功生成文本内容，错误处理机制工作正常。",
+        "subtasks": []
+      },
+      {
+        "id": "5",
+        "title": "用户认证和权限管理",
+        "description": "实现完整的用户注册、登录和权限管理系统",
+        "status": "pending",
+        "priority": "high",
+        "dependencies": ["2", "3"],
+        "details": "使用 Supabase Auth 实现用户注册、登录、退出功能。支持邮箱/密码和社交登录。实现会话管理、路由保护、权限验证。创建用户个人中心页面。",
+        "testStrategy": "验证用户可以正常注册、登录、退出，会话状态正确维护，受保护路由正常工作。",
+        "subtasks": []
+      },
+      {
+        "id": "6",
+        "title": "标题生成器功能开发",
+        "description": "开发爆款标题生成器功能模块",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["2", "4", "5"],
+        "details": "创建标题生成器页面，包含关键词输入、平台选择、风格选择。实现 AI 标题生成逻辑，支持批量生成、评分、收藏功能。实现历史记录和一键复制功能。",
+        "testStrategy": "验证标题生成功能正常工作，生成的标题符合预期，用户交互流畅。",
+        "subtasks": []
+      },
+      {
+        "id": "7",
+        "title": "品牌命名器功能开发",
+        "description": "开发品牌命名器功能模块",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["2", "4", "5"],
+        "details": "创建品牌命名器页面，支持产品描述输入、命名风格选择。实现 AI 品牌名生成，集成域名查询 API。实现批量生成、相似度检测、收藏功能。",
+        "testStrategy": "验证品牌名生成正常，域名查询功能工作，生成结果符合预期。",
+        "subtasks": []
+      },
+      {
+        "id": "8",
+        "title": "广告语生成器功能开发",
+        "description": "开发广告语生成器功能模块",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["2", "4", "5"],
+        "details": "创建广告语生成器页面，支持品牌卖点输入、语气选择、字数限制。实现 AI 广告语生成，包含评分系统和变体生成。实现收藏和 A/B 测试功能。",
+        "testStrategy": "验证广告语生成功能正常，评分系统准确，用户体验良好。",
+        "subtasks": []
+      },
+      {
+        "id": "9",
+        "title": "随机创意提示器开发",
+        "description": "开发随机创意提示器（灵感骰子）功能",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": ["2", "4", "5"],
+        "details": "创建随机创意提示器页面，实现一键摇骰子功能。支持多维度随机组合（场景、受众、角度、形式）。实现锁定维度、历史记录、收藏功能。",
+        "testStrategy": "验证随机生成功能正常，组合逻辑合理，用户交互直观。",
+        "subtasks": []
+      },
+      {
+        "id": "10",
+        "title": "灵感收藏夹功能开发",
+        "description": "开发灵感收藏夹管理系统",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["3", "5"],
+        "details": "创建收藏夹页面，实现分组管理、标签系统。支持批量操作、搜索过滤、导出功能。实现版本记录和评论备注功能。设置权限管理（私有/团队共享）。",
+        "testStrategy": "验证收藏夹功能完整，数据操作正确，权限控制有效。",
+        "subtasks": []
+      },
+      {
+        "id": "11",
+        "title": "灵感广场社区功能开发",
+        "description": "开发灵感分享社区平台",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["3", "5", "10"],
+        "details": "创建灵感广场页面，实现灵感贴发布、互动功能。支持点赞、评论、收藏、分享。实现热度算法、筛选排序、悬赏求助功能。添加内容审核和违规检测。",
+        "testStrategy": "验证社区功能正常，用户互动流畅，内容审核有效。",
+        "subtasks": []
+      },
+      {
+        "id": "12",
+        "title": "AI 灵感助手聊天功能开发",
+        "description": "开发 AI 灵感助手对话式交互功能",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["4", "5"],
+        "details": "创建 AI 助手页面，实现聊天式交互界面。支持多轮对话、上下文记忆、模板快捷入口。实现对话历史保存、内容收藏、跳转其他工具功能。",
+        "testStrategy": "验证 AI 对话功能正常，上下文理解准确，交互体验自然。",
+        "subtasks": []
+      },
+      {
+        "id": "13",
+        "title": "图像提示词生成器开发",
+        "description": "开发 AI 图像生成提示词构建工具",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": ["4", "5"],
+        "details": "创建图像提示词生成器页面，支持可视化参数选择。实现风格、镜头、构图等选项配置。支持中英文切换、预设模板、提示词优化功能。",
+        "testStrategy": "验证提示词生成准确，参数配置有效，输出格式正确。",
+        "subtasks": []
+      },
+      {
+        "id": "14",
+        "title": "创意改写器功能开发",
+        "description": "开发内容多风格改写功能",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["4", "5"],
+        "details": "创建创意改写器页面，支持多种改写方向和平台语气。实现一稿多写、版本对比、继续加工功能。集成与其他工具的联动机制。",
+        "testStrategy": "验证改写功能准确，风格差异明显，版本管理正确。",
+        "subtasks": []
+      },
+      {
+        "id": "15",
+        "title": "标题优化器和 A/B 测试工具开发",
+        "description": "开发标题对比分析和优化建议功能",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["4", "5", "6"],
+        "details": "创建标题优化器页面，支持多标题对比分析。实现 AI 评分系统、优化建议、报告导出功能。集成与标题生成器和改写器的联动。",
+        "testStrategy": "验证评分系统准确，优化建议有效，报告生成正确。",
+        "subtasks": []
+      },
+      {
+        "id": "16",
+        "title": "灵感图谱可视化功能开发",
+        "description": "开发灵感脑图可视化管理工具",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": ["5", "10"],
+        "details": "创建灵感图谱页面，实现拖拽式脑图编辑。支持 AI 自动延展、手动编辑、节点类型区分。实现保存版本、导出功能、工具联动。",
+        "testStrategy": "验证脑图功能正常，交互体验良好，数据保存正确。",
+        "subtasks": []
+      },
+      {
+        "id": "17",
+        "title": "灵感时间线和创意日记开发",
+        "description": "开发创意历程跟踪和日记功能",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": ["5", "10"],
+        "details": "创建灵感时间线页面，自动记录用户创作活动。实现事件分类、搜索过滤、统计仪表盘。支持日记笔记、成长激励、隐私设置功能。",
+        "testStrategy": "验证时间线记录准确，统计数据正确，隐私控制有效。",
+        "subtasks": []
+      },
+      {
+        "id": "18",
+        "title": "国际化和多语言支持",
+        "description": "实现中英文双语切换功能",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["2"],
+        "details": "配置 next-intl 或 next-i18next，实现界面文本国际化。支持中英文动态切换，AI 生成内容的多语言适配。处理 RTL 布局和本地化格式。",
+        "testStrategy": "验证语言切换正常，文本翻译准确，布局适配正确。",
+        "subtasks": []
+      },
+      {
+        "id": "19",
+        "title": "响应式设计和移动端适配",
+        "description": "优化移动端用户体验",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["2"],
+        "details": "使用 Tailwind CSS 实现响应式设计，优化移动端交互体验。调整布局、字体大小、按钮尺寸。优化移动端导航和工具使用流程。",
+        "testStrategy": "验证各屏幕尺寸显示正常，移动端交互流畅，功能完整可用。",
+        "subtasks": []
+      },
+      {
+        "id": "20",
+        "title": "性能优化和 SEO",
+        "description": "优化应用性能和搜索引擎优化",
+        "status": "pending",
+        "priority": "low",
+        "dependencies": ["18", "19"],
+        "details": "实现页面预加载、图片优化、代码分割。配置 SEO meta 标签、sitemap、robots.txt。优化首屏加载时间和 Core Web Vitals 指标。",
+        "testStrategy": "验证页面加载速度，SEO 配置正确，性能指标达标。",
+        "subtasks": []
+      },
+      {
+        "id": "21",
+        "title": "部署和 CI/CD 配置",
+        "description": "配置生产环境部署和持续集成",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["20"],
+        "details": "配置 Vercel 部署，设置环境变量和域名。建立 GitHub Actions CI/CD 流程，包含代码检查、测试、自动部署。配置监控和日志系统。",
+        "testStrategy": "验证部署流程正常，CI/CD 自动化工作，监控数据正确收集。",
+        "subtasks": []
+      },
+      {
+        "id": "22",
+        "title": "测试和质量保证",
+        "description": "建立完整的测试体系",
+        "status": "pending",
+        "priority": "medium",
+        "dependencies": ["21"],
+        "details": "编写单元测试、集成测试、端到端测试。配置测试环境和数据库。实现自动化测试流程，设置代码覆盖率检查。",
+        "testStrategy": "验证测试用例覆盖完整，自动化测试通过，代码质量达标。",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-07-07T19:40:04.740Z",
+      "updated": "2025-07-07T19:40:04.740Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

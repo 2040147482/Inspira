@@ -1,0 +1,11 @@
+# Task ID: 12
+# Title: AI 灵感助手聊天功能开发
+# Status: pending
+# Dependencies: 4 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发 AI 灵感助手对话式交互功能
+# Details:
+创建 AI 助手页面，实现聊天式交互界面。支持多轮对话、上下文记忆、模板快捷入口。实现对话历史保存、内容收藏、跳转其他工具功能。
+
+# Test Strategy:
+验证 AI 对话功能正常，上下文理解准确，交互体验自然。

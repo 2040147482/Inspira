@@ -1,0 +1,11 @@
+# Task ID: 8
+# Title: 广告语生成器功能开发
+# Status: pending
+# Dependencies: 2 (Not found), 4 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发广告语生成器功能模块
+# Details:
+创建广告语生成器页面，支持品牌卖点输入、语气选择、字数限制。实现 AI 广告语生成，包含评分系统和变体生成。实现收藏和 A/B 测试功能。
+
+# Test Strategy:
+验证广告语生成功能正常，评分系统准确，用户体验良好。

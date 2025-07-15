@@ -1,0 +1,11 @@
+# Task ID: 5
+# Title: 用户认证和权限管理
+# Status: pending
+# Dependencies: 2 (Not found), 3 (Not found)
+# Priority: high
+# Description: 实现完整的用户注册、登录和权限管理系统
+# Details:
+使用 Supabase Auth 实现用户注册、登录、退出功能。支持邮箱/密码和社交登录。实现会话管理、路由保护、权限验证。创建用户个人中心页面。
+
+# Test Strategy:
+验证用户可以正常注册、登录、退出，会话状态正确维护，受保护路由正常工作。

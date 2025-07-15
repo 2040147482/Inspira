@@ -1,0 +1,11 @@
+# Task ID: 6
+# Title: 标题生成器功能开发
+# Status: pending
+# Dependencies: 2 (Not found), 4 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发爆款标题生成器功能模块
+# Details:
+创建标题生成器页面，包含关键词输入、平台选择、风格选择。实现 AI 标题生成逻辑，支持批量生成、评分、收藏功能。实现历史记录和一键复制功能。
+
+# Test Strategy:
+验证标题生成功能正常工作，生成的标题符合预期，用户交互流畅。

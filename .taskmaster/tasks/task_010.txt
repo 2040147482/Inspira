@@ -1,0 +1,11 @@
+# Task ID: 10
+# Title: 灵感收藏夹功能开发
+# Status: pending
+# Dependencies: 3 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发灵感收藏夹管理系统
+# Details:
+创建收藏夹页面，实现分组管理、标签系统。支持批量操作、搜索过滤、导出功能。实现版本记录和评论备注功能。设置权限管理（私有/团队共享）。
+
+# Test Strategy:
+验证收藏夹功能完整，数据操作正确，权限控制有效。

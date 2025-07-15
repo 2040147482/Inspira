@@ -1,0 +1,11 @@
+# Task ID: 4
+# Title: OpenAI API 集成
+# Status: pending
+# Dependencies: 1 (Not found), 3 (Not found)
+# Priority: high
+# Description: 集成 OpenAI API，实现 AI 内容生成功能
+# Details:
+配置 OpenAI API 密钥，创建 API 路由处理 AI 请求。实现文本生成基础功能，包括 prompt 模板管理、响应处理、错误处理。设置请求限制和缓存机制。
+
+# Test Strategy:
+验证 OpenAI API 连接正常，能够成功生成文本内容，错误处理机制工作正常。

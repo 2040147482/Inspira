@@ -1,0 +1,14 @@
+---
+description: 配置 MCP 客户端以使用interactive-mcp服务器
+globs: **/*
+alwaysApply: true
+---
+# Interaction
+
+- Please use the interactive MCP tools
+- Please provide options to interactive MCP if possible
+
+# Reduce Unexpected Changes
+
+- Do not make assumption.
+- Ask more questions before executing, until you think the requirement is clear enough.

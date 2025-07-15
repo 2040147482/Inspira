@@ -1,0 +1,11 @@
+# Task ID: 7
+# Title: 品牌命名器功能开发
+# Status: pending
+# Dependencies: 2 (Not found), 4 (Not found), 5 (Not found)
+# Priority: medium
+# Description: 开发品牌命名器功能模块
+# Details:
+创建品牌命名器页面，支持产品描述输入、命名风格选择。实现 AI 品牌名生成，集成域名查询 API。实现批量生成、相似度检测、收藏功能。
+
+# Test Strategy:
+验证品牌名生成正常，域名查询功能工作，生成结果符合预期。

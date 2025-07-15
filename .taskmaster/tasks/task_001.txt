@@ -1,0 +1,11 @@
+# Task ID: 1
+# Title: 项目基础架构搭建
+# Status: done
+# Dependencies: None
+# Priority: high
+# Description: 搭建 Next.js 项目基础架构，配置开发环境
+# Details:
+使用 Next.js 14 App Router 创建项目，配置 TypeScript、ESLint、Prettier、Tailwind CSS。设置项目目录结构，配置环境变量模板。
+
+# Test Strategy:
+验证项目能够正常启动，开发服务器运行正常，TypeScript 类型检查通过。

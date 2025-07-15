@@ -1,0 +1,11 @@
+# Task ID: 17
+# Title: 灵感时间线和创意日记开发
+# Status: pending
+# Dependencies: 5 (Not found), 10 (Not found)
+# Priority: low
+# Description: 开发创意历程跟踪和日记功能
+# Details:
+创建灵感时间线页面，自动记录用户创作活动。实现事件分类、搜索过滤、统计仪表盘。支持日记笔记、成长激励、隐私设置功能。
+
+# Test Strategy:
+验证时间线记录准确，统计数据正确，隐私控制有效。

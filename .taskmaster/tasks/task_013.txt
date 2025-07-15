@@ -1,0 +1,11 @@
+# Task ID: 13
+# Title: 图像提示词生成器开发
+# Status: pending
+# Dependencies: 4 (Not found), 5 (Not found)
+# Priority: low
+# Description: 开发 AI 图像生成提示词构建工具
+# Details:
+创建图像提示词生成器页面，支持可视化参数选择。实现风格、镜头、构图等选项配置。支持中英文切换、预设模板、提示词优化功能。
+
+# Test Strategy:
+验证提示词生成准确，参数配置有效，输出格式正确。

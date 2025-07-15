@@ -1,0 +1,16 @@
+{
+    "name": "IdeaBox - 灵感火花工具箱",
+    "short_name": "IdeaBox",
+    "description": "为内容创作者、品牌从业者、营销人和自由撰稿人提供一站式创意生成工具",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#3b82f6",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "any",
+            "type": "image/x-icon"
+        }
+    ]
+}

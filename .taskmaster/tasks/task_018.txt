@@ -1,0 +1,11 @@
+# Task ID: 18
+# Title: 国际化和多语言支持
+# Status: pending
+# Dependencies: 2 (Not found)
+# Priority: medium
+# Description: 实现中英文双语切换功能
+# Details:
+配置 next-intl 或 next-i18next，实现界面文本国际化。支持中英文动态切换，AI 生成内容的多语言适配。处理 RTL 布局和本地化格式。
+
+# Test Strategy:
+验证语言切换正常，文本翻译准确，布局适配正确。
