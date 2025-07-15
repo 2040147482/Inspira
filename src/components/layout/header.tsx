@@ -16,6 +16,13 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger
+} from '@/components/ui/sheet';
+import {
   Lightbulb,
   ChevronDown,
   Globe,
@@ -36,6 +43,8 @@ import {
   Book,
   FileText,
   Compass,
+  Menu,
+  X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';
@@ -48,75 +57,107 @@ const UserIcon = ({ className }: { className?: string }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M959.68 921.024c-15.232-181.696-139.648-331.968-307.84-386.624 70.464-45.632 117.248-124.48 117.248-214.464C769.152 178.624 654.208 64 512.512 64 370.752 64 255.808 178.624 255.808 319.936c0 89.984 46.784 168.832 117.248 214.528-168.192 54.592-292.544 204.864-307.84 386.56-0.192 3.456-0.64 5.44 0 10.176C66.496 947.2 80.64 960 96.704 960c17.92 0 32.064-14.656 32.064-32 16.704-197.76 182.272-351.936 383.744-351.936 201.408 0 366.976 154.176 383.68 351.936 0 17.344 14.144 32 32.064 32 16.064 0 30.208-12.8 31.424-28.8C960.32 926.464 959.936 924.416 959.68 921.024zM320 319.936C320 213.952 406.208 128 512.512 128s192.448 85.952 192.448 191.936c0 106.048-86.144 192-192.448 192S320 425.984 320 319.936z"
+      d="M512 512a128 128 0 1 0 0-256 128 128 0 0 0 0 256zm0 64c-84.352 0-256 42.688-256 128v64h512v-64c0-85.312-171.648-128-256-128z"
       fill="currentColor"
     />
   </svg>
 );
 
-export function Header() {
-  const { user, loading, isSupabaseConfigured, signOut } = useAuth();
-  const [language, setLanguage] = useState<'zh' | 'en'>('zh');
-  const [showUserNotification, setShowUserNotification] = useState(false);
+export default function Header() {
+  const [language, setLanguage] = useState('zh');
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, signOut } = useAuth();
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'zh' ? 'en' : 'zh');
-  };
-
-  const handleSignOut = async () => {
-    if (!isSupabaseConfigured) return;
-    try {
-      const { error } = await signOut();
-      if (error) {
-        console.error('登出失败:', error.message);
-      }
-    } catch (error) {
-      console.error('登出异常:', error);
-    }
-  };
-
-  const handleLoginClick = () => {
-    // 跳转到登录页面
-    window.location.href = '/auth/login';
-  };
-
-  // 当用户登录时显示通知
   useEffect(() => {
-    if (user && !loading) {
-      setShowUserNotification(true);
-      const timer = setTimeout(() => setShowUserNotification(false), 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [user, loading]);
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
 
-  // 用户菜单渲染逻辑
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const toolsData = {
+    inspiration: [
+      {
+        icon: <Zap className="h-4 w-4 text-orange-500" />,
+        name: '爆款标题生成器',
+        description: 'Title Generator',
+        href: '/tools/title-generator',
+      },
+      {
+        icon: <Palette className="h-4 w-4 text-purple-500" />,
+        name: '品牌命名器',
+        description: 'Brand Name Generator',
+        href: '/tools/brand-name',
+      },
+      {
+        icon: <Megaphone className="h-4 w-4 text-green-500" />,
+        name: '广告语生成器',
+        description: 'Slogan Generator',
+        href: '/tools/slogan',
+      },
+      {
+        icon: <Shuffle className="h-4 w-4 text-blue-500" />,
+        name: '随机灵感骰子',
+        description: 'Random Idea Prompt',
+        href: '/tools/random-idea',
+      },
+    ],
+    community: [
+      {
+        icon: <Users className="h-4 w-4 text-indigo-500" />,
+        name: '灵感市集',
+        description: 'Idea Plaza',
+        href: '/community',
+      },
+      {
+        icon: <MessageCircle className="h-4 w-4 text-cyan-500" />,
+        name: 'AI 写作辅导师',
+        description: 'AI Copywriter',
+        href: '/tools/ai-writer',
+      },
+      {
+        icon: <Image className="h-4 w-4 text-pink-500" />,
+        name: 'AI 绘图 Prompt 生成器',
+        description: 'Image Prompt Generator',
+        href: '/tools/image-prompt',
+      },
+    ],
+    management: [
+      {
+        icon: <Book className="h-4 w-4 text-amber-500" />,
+        name: '灵感收藏夹',
+        description: 'Inspiration Library',
+        href: '/library',
+      },
+      {
+        icon: <FileText className="h-4 w-4 text-emerald-500" />,
+        name: '内容管理器',
+        description: 'Content Manager',
+        href: '/content',
+      },
+      {
+        icon: <Compass className="h-4 w-4 text-teal-500" />,
+        name: '创作导航',
+        description: 'Creation Guide',
+        href: '/guide',
+      },
+    ],
+  };
+
   const renderUserSection = () => {
-    if (loading) {
-      return (
-        <Button variant="ghost" size="sm" disabled>
-          <UserIcon className="h-4 w-4 animate-pulse" />
-        </Button>
-      );
-    }
-
-    if (!isSupabaseConfigured) {
-      return (
-        <div className="flex items-center gap-2">
-          <span className="text-xs text-orange-500">Demo模式</span>
-          <Button variant="ghost" size="sm" disabled>
-            <UserIcon className="h-4 w-4" />
-          </Button>
-        </div>
-      );
-    }
-
     if (user) {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-8 w-8 rounded-full">
               <Avatar className="h-8 w-8">
-                <AvatarImage src={user.user_metadata?.avatar_url} alt={user.email || ''} />
+                <AvatarImage
+                  src={user.user_metadata?.avatar_url}
+                  alt={user.email || '用户'}
+                />
                 <AvatarFallback>
                   <UserIcon className="h-4 w-4" />
                 </AvatarFallback>
@@ -127,7 +168,7 @@ export function Header() {
             <DropdownMenuLabel className="font-normal">
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">
-                  {user.user_metadata?.full_name || user.email}
+                  {user.user_metadata?.full_name || '用户'}
                 </p>
                 <p className="text-xs leading-none text-muted-foreground">
                   {user.email}
@@ -135,22 +176,28 @@ export function Header() {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LayoutDashboard className="mr-2 h-4 w-4" />
-              <span>我的空间</span>
+            <DropdownMenuItem asChild>
+              <Link href="/dashboard" className="flex items-center">
+                <LayoutDashboard className="mr-2 h-4 w-4" />
+                工作台
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Heart className="mr-2 h-4 w-4" />
-              <span>我的灵感</span>
+            <DropdownMenuItem asChild>
+              <Link href="/favorites" className="flex items-center">
+                <Heart className="mr-2 h-4 w-4" />
+                收藏夹
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>设置</span>
+            <DropdownMenuItem asChild>
+              <Link href="/settings" className="flex items-center">
+                <Settings className="mr-2 h-4 w-4" />
+                设置
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={handleSignOut}>
+            <DropdownMenuItem onClick={signOut}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>登出</span>
+              退出登录
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -158,225 +205,217 @@ export function Header() {
     }
 
     return (
-      <div className="flex items-center gap-2">
-        <Link href="/auth/login">
-          <Button variant="ghost" size="sm">
-            登录
-          </Button>
-        </Link>
-        <Link href="/auth/register">
-          <Button size="sm">
-            注册
-          </Button>
-        </Link>
+      <div className="flex items-center space-x-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="text-sm font-medium"
+          asChild
+        >
+          <Link href="/auth/login">登录</Link>
+        </Button>
+        <Button
+          size="sm"
+          className="text-sm font-medium"
+          asChild
+        >
+          <Link href="/auth/register">注册</Link>
+        </Button>
       </div>
+    );
+  };
+
+  const MobileNavigation = () => {
+    return (
+      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <SheetTrigger asChild>
+          <Button variant="ghost" size="sm" className="md:hidden">
+            <Menu className="h-5 w-5" />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side="left" className="p-0">
+          <SheetHeader className="p-4">
+            <SheetTitle className="text-lg font-semibold">
+              菜单
+            </SheetTitle>
+          </SheetHeader>
+          <div className="flex flex-col space-y-4 p-4">
+            <Link href="/" className="text-lg font-semibold">
+              <Lightbulb className="mr-2 h-5 w-5" />
+              首页
+            </Link>
+            <Link href="/tools" className="text-lg font-semibold">
+              <Zap className="mr-2 h-5 w-5" />
+              创意工具
+            </Link>
+            <Link href="/industries" className="text-lg font-semibold">
+              <Globe className="mr-2 h-5 w-5" />
+              行业应用
+            </Link>
+            <Link href="/pricing" className="text-lg font-semibold">
+              <Target className="mr-2 h-5 w-5" />
+              定价
+            </Link>
+            <Link href="/blog" className="text-lg font-semibold">
+              <Book className="mr-2 h-5 w-5" />
+              博客
+            </Link>
+            <Link href="/community" className="text-lg font-semibold">
+              <Users className="mr-2 h-5 w-5" />
+              灵感市集
+            </Link>
+            <Link href="/dashboard" className="text-lg font-semibold">
+              <LayoutDashboard className="mr-2 h-5 w-5" />
+              工作台
+            </Link>
+            <Link href="/favorites" className="text-lg font-semibold">
+              <Heart className="mr-2 h-5 w-5" />
+              收藏夹
+            </Link>
+            <Link href="/settings" className="text-lg font-semibold">
+              <Settings className="mr-2 h-5 w-5" />
+              设置
+            </Link>
+            <Link href="/auth/login" className="text-lg font-semibold">
+              <User className="mr-2 h-5 w-5" />
+              登录
+            </Link>
+            <Link href="/auth/register" className="text-lg font-semibold">
+              <User className="mr-2 h-5 w-5" />
+              注册
+            </Link>
+          </div>
+        </SheetContent>
+      </Sheet>
     );
   };
 
   return (
     <header
-      className="sticky top-0 z-50 w-full border-b"
-      style={{ backgroundColor: '#fcfcfc' }}
+      className={cn(
+        'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-all duration-200',
+        isScrolled && 'shadow-sm'
+      )}
     >
-      <div className="container flex h-16 items-center">
+      <div className="container mx-auto flex h-16 items-center px-4">
         {/* Logo */}
-        <Link href="/" className="mr-8 flex items-center space-x-2 hover:opacity-80 transition-opacity">
-          <Lightbulb className="h-7 w-7 text-blue-600" />
-          <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            IdeaBox
-          </span>
-        </Link>
+        <div className="flex items-center space-x-2">
+          <MobileNavigation />
+          <Link href="/" className="flex items-center space-x-2">
+            <Lightbulb className="h-6 w-6 text-blue-600" />
+            <span className="text-xl font-bold">IdeaBox</span>
+          </Link>
+        </div>
 
-        {/* Main Navigation */}
-        <nav className="flex items-center space-x-1">
-          {/* 产品 Product */}
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex ml-8 space-x-6">
+          {/* 创意工具下拉菜单 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
               >
-                产品
+                创意工具
                 <ChevronDown className="ml-1 h-3 w-3" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-[720px] p-4" align="start">
-              <div className="grid grid-cols-3 gap-6">
+            <DropdownMenuContent className="w-[600px] p-4" align="start">
+              <div className="grid grid-cols-2 gap-6">
                 {/* 灵感启蒙分类 */}
                 <div className="space-y-1">
                   <DropdownMenuLabel className="px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    灵感启蒙 Inspiration Starter
+                    灵感启蒙
                   </DropdownMenuLabel>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Zap className="h-4 w-4 text-orange-500" />
-                    <div>
-                      <div className="font-medium">爆款标题生成器</div>
-                      <div className="text-xs text-muted-foreground">
-                        Title Generator
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Palette className="h-4 w-4 text-purple-500" />
-                    <div>
-                      <div className="font-medium">品牌命名器</div>
-                      <div className="text-xs text-muted-foreground">
-                        Brand Name Generator
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Megaphone className="h-4 w-4 text-green-500" />
-                    <div>
-                      <div className="font-medium">广告语生成器</div>
-                      <div className="text-xs text-muted-foreground">
-                        Slogan Generator
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Shuffle className="h-4 w-4 text-blue-500" />
-                    <div>
-                      <div className="font-medium">随机灵感骰子</div>
-                      <div className="text-xs text-muted-foreground">
-                        Random Idea Prompt
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Star className="h-4 w-4 text-yellow-500" />
-                    <div>
-                      <div className="font-medium">最近收藏</div>
-                      <div className="text-xs text-muted-foreground">
-                        Inspiration Library 快捷入口
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
+                  {toolsData.inspiration.map((tool, index) => (
+                    <DropdownMenuItem key={index} className="flex items-center gap-3 p-2" asChild>
+                      <Link href={tool.href}>
+                        {tool.icon}
+                        <div>
+                          <div className="font-medium">{tool.name}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {tool.description}
+                          </div>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
                 </div>
 
                 {/* 灵感共创分类 */}
                 <div className="space-y-1">
                   <DropdownMenuLabel className="px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    灵感共创 Inspiration Community
+                    灵感共创
                   </DropdownMenuLabel>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Users className="h-4 w-4 text-indigo-500" />
-                    <div>
-                      <div className="font-medium">灵感市集</div>
-                      <div className="text-xs text-muted-foreground">
-                        Idea Plaza
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <MessageCircle className="h-4 w-4 text-cyan-500" />
-                    <div>
-                      <div className="font-medium">AI 写作辅导师</div>
-                      <div className="text-xs text-muted-foreground">
-                        AI Copywriter
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Image className="h-4 w-4 text-pink-500" />
-                    <div>
-                      <div className="font-medium">AI 绘图 Prompt 生成器</div>
-                      <div className="text-xs text-muted-foreground">
-                        Image Prompt Generator
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Target className="h-4 w-4 text-red-500" />
-                    <div>
-                      <div className="font-medium">标题优化 & A/B 测试器</div>
-                      <div className="text-xs text-muted-foreground">
-                        Title Optimizer
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                </div>
-
-                {/* 灵感管理分类 */}
-                <div className="space-y-1">
-                  <DropdownMenuLabel className="px-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                    灵感管理 Inspiration Manager
-                  </DropdownMenuLabel>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Book className="h-4 w-4 text-emerald-500" />
-                    <div>
-                      <div className="font-medium">灵感收藏夹</div>
-                      <div className="text-xs text-muted-foreground">
-                        Inspiration Library
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <Compass className="h-4 w-4 text-violet-500" />
-                    <div>
-                      <div className="font-medium">灵感脑图</div>
-                      <div className="text-xs text-muted-foreground">
-                        Inspiration Mindmap
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className="flex items-center gap-3 p-2">
-                    <FileText className="h-4 w-4 text-amber-500" />
-                    <div>
-                      <div className="font-medium">创意日记</div>
-                      <div className="text-xs text-muted-foreground">
-                        Inspiration Timeline & Diary
-                      </div>
-                    </div>
-                  </DropdownMenuItem>
+                  {toolsData.community.map((tool, index) => (
+                    <DropdownMenuItem key={index} className="flex items-center gap-3 p-2" asChild>
+                      <Link href={tool.href}>
+                        {tool.icon}
+                        <div>
+                          <div className="font-medium">{tool.name}</div>
+                          <div className="text-xs text-muted-foreground">
+                            {tool.description}
+                          </div>
+                        </div>
+                      </Link>
+                    </DropdownMenuItem>
+                  ))}
                 </div>
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* 解决方案 Solutions */}
+          {/* 行业应用下拉菜单 */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
                 className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
               >
-                解决方案
+                行业应用
                 <ChevronDown className="ml-1 h-3 w-3" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" align="start">
-              <DropdownMenuItem className="p-3">
-                <div>
-                  <div className="font-medium">自媒体创作者</div>
-                  <div className="text-xs text-muted-foreground">
-                    内容创作与标题优化
+            <DropdownMenuContent className="w-64" align="start">
+              <DropdownMenuItem className="p-3" asChild>
+                <Link href="/industries/content-creator">
+                  <div>
+                    <div className="font-medium">自媒体创作者</div>
+                    <div className="text-xs text-muted-foreground">
+                      内容创作与标题优化
+                    </div>
                   </div>
-                </div>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="p-3">
-                <div>
-                  <div className="font-medium">品牌运营方</div>
-                  <div className="text-xs text-muted-foreground">
-                    品牌命名与营销文案
+              <DropdownMenuItem className="p-3" asChild>
+                <Link href="/industries/brand-operation">
+                  <div>
+                    <div className="font-medium">品牌运营方</div>
+                    <div className="text-xs text-muted-foreground">
+                      品牌命名与营销文案
+                    </div>
                   </div>
-                </div>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="p-3">
-                <div>
-                  <div className="font-medium">视频内容制作人</div>
-                  <div className="text-xs text-muted-foreground">
-                    视频标题与脚本灵感
+              <DropdownMenuItem className="p-3" asChild>
+                <Link href="/industries/video-creator">
+                  <div>
+                    <div className="font-medium">视频内容制作人</div>
+                    <div className="text-xs text-muted-foreground">
+                      视频标题与脚本灵感
+                    </div>
                   </div>
-                </div>
+                </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="p-3">
-                <div>
-                  <div className="font-medium">海外社媒管理团队</div>
-                  <div className="text-xs text-muted-foreground">
-                    多语言内容策划
+              <DropdownMenuItem className="p-3" asChild>
+                <Link href="/industries/social-media">
+                  <div>
+                    <div className="font-medium">海外社媒管理团队</div>
+                    <div className="text-xs text-muted-foreground">
+                      多语言内容策划
+                    </div>
                   </div>
-                </div>
+                </Link>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -387,7 +426,7 @@ export function Header() {
             className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
             asChild
           >
-            <a href="/pricing">定价</a>
+            <Link href="/pricing">定价</Link>
           </Button>
 
           {/* 博客 */}
@@ -396,7 +435,7 @@ export function Header() {
             className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
             asChild
           >
-            <a href="/blog">博客</a>
+            <Link href="/blog">博客</Link>
           </Button>
 
           {/* 灵感市集 */}
@@ -405,44 +444,46 @@ export function Header() {
             className="h-9 px-3 text-sm font-medium text-muted-foreground hover:text-foreground"
             asChild
           >
-            <a href="/community">灵感市集</a>
+            <Link href="/community">灵感市集</Link>
           </Button>
         </nav>
 
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          {/* 语言切换 */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="h-8 px-2 text-sm text-muted-foreground hover:text-foreground"
-              >
-                <Globe className="mr-1 h-4 w-4" />
-                {language === 'zh' ? '中' : 'EN'}
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem
-                onClick={() => setLanguage('zh')}
-                className={cn(language === 'zh' && 'bg-accent')}
-              >
-                中文
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                onClick={() => setLanguage('en')}
-                className={cn(language === 'en' && 'bg-accent')}
-              >
-                English
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+        {/* Right Section */}
+        <div className="flex flex-1 items-center justify-end space-x-2 md:space-x-4">
+          {/* Desktop Language Switcher */}
+          <div className="hidden md:block">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 px-2 text-sm text-muted-foreground hover:text-foreground"
+                >
+                  <Globe className="mr-1 h-4 w-4" />
+                  {language === 'zh' ? '中' : 'EN'}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => setLanguage('zh')}
+                  className={cn(language === 'zh' && 'bg-accent')}
+                >
+                  中文
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={() => setLanguage('en')}
+                  className={cn(language === 'en' && 'bg-accent')}
+                >
+                  English
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
 
-          {/* 用户操作 */}
+          {/* User Section */}
           {renderUserSection()}
         </div>
       </div>
     </header>
   );
 }
- 

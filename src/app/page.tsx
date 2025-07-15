@@ -21,24 +21,24 @@ export default function HomePage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 to-indigo-100 py-12 md:py-20">
         <div className="container mx-auto px-4 text-center">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 md:mb-6 px-2">
               点燃创意火花，释放无限
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
                 灵感
               </span>
             </h1>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="text-lg md:text-xl text-gray-600 mb-6 md:mb-8 px-4 max-w-2xl mx-auto">
               为内容创作者、品牌从业者、营销人和自由撰稿人提供一站式创意生成工具
             </p>
-            <div className="flex justify-center space-x-4">
-              <Button size="lg" className="px-8">
-                <Sparkles className="mr-2 h-5 w-5" />
+            <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
+              <Button size="lg" className="px-6 md:px-8 py-3 md:py-4 text-base md:text-lg w-full sm:w-auto">
+                <Sparkles className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                 免费开始
               </Button>
-              <Button variant="outline" size="lg" className="px-8">
+              <Button variant="outline" size="lg" className="px-6 md:px-8 py-3 md:py-4 text-base md:text-lg w-full sm:w-auto">
                 查看演示
               </Button>
             </div>
@@ -46,67 +46,67 @@ export default function HomePage() {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute top-10 left-10 w-20 h-20 bg-blue-200 rounded-full opacity-50"></div>
-        <div className="absolute top-40 right-10 w-16 h-16 bg-purple-200 rounded-full opacity-50"></div>
-        <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-indigo-200 rounded-full opacity-50"></div>
+        <div className="absolute top-10 left-4 md:left-10 w-16 h-16 md:w-20 md:h-20 bg-blue-200 rounded-full opacity-50"></div>
+        <div className="absolute top-32 md:top-40 right-4 md:right-10 w-12 h-12 md:w-16 md:h-16 bg-purple-200 rounded-full opacity-50"></div>
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-8 h-8 md:w-12 md:h-12 bg-green-200 rounded-full opacity-30"></div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-16 bg-white">
+      {/* Features Grid */}
+      <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              强大的创意工具
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+              强大的创意工具集
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              从标题生成到品牌命名，从创意提示到内容改写，一站式解决你的创意需求
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+              专为创作者设计的智能化工具，让创意变得简单高效
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-4">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Wand2 className="h-6 w-6 text-blue-600" />
+                  <Lightbulb className="h-6 w-6 text-blue-600" />
                 </div>
-                <CardTitle>爆款标题生成器</CardTitle>
-                <CardDescription>
-                  AI驱动的标题创作，让你的内容脱颖而出
+                <CardTitle className="text-lg md:text-xl">爆款标题生成器</CardTitle>
+                <CardDescription className="text-sm md:text-base">
+                  一键生成吸引人的标题，提升内容点击率
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-4">
                 <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <Lightbulb className="h-6 w-6 text-purple-600" />
+                  <Wand2 className="h-6 w-6 text-purple-600" />
                 </div>
-                <CardTitle>品牌命名器</CardTitle>
-                <CardDescription>
-                  专业的品牌命名建议，助力品牌诞生
+                <CardTitle className="text-lg md:text-xl">品牌命名器</CardTitle>
+                <CardDescription className="text-sm md:text-base">
+                  智能生成独特的品牌名称和商标建议
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-4">
                 <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <MessageSquare className="h-6 w-6 text-green-600" />
                 </div>
-                <CardTitle>广告语生成器</CardTitle>
-                <CardDescription>
-                  创造吸引人的广告语，提升营销效果
+                <CardTitle className="text-lg md:text-xl">文案创作助手</CardTitle>
+                <CardDescription className="text-sm md:text-base">
+                  AI 驱动的文案生成，适配各种场景需求
                 </CardDescription>
               </CardHeader>
             </Card>
 
-            <Card className="text-center hover:shadow-lg transition-shadow">
-              <CardHeader>
+            <Card className="text-center hover:shadow-lg transition-shadow duration-300">
+              <CardHeader className="pb-4">
                 <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <Sparkles className="h-6 w-6 text-orange-600" />
                 </div>
-                <CardTitle>AI 灵感助手</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-lg md:text-xl">AI 灵感助手</CardTitle>
+                <CardDescription className="text-sm md:text-base">
                   智能对话，随时为你提供创意指导
                 </CardDescription>
               </CardHeader>
@@ -116,94 +116,117 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-gray-50">
+      <section className="py-12 md:py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 text-center">
             <div>
-              <div className="text-3xl font-bold text-blue-600 mb-2">
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 mb-2">
                 10,000+
               </div>
-              <div className="text-gray-600">创意生成</div>
+              <div className="text-sm md:text-base text-gray-600">创意生成</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-purple-600 mb-2">
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 mb-2">
                 5,000+
               </div>
-              <div className="text-gray-600">用户</div>
+              <div className="text-sm md:text-base text-gray-600">用户</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-green-600 mb-2">95%</div>
-              <div className="text-gray-600">满意度</div>
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-green-600 mb-2">95%</div>
+              <div className="text-sm md:text-base text-gray-600">满意度</div>
             </div>
             <div>
-              <div className="text-3xl font-bold text-orange-600 mb-2">
+              <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-orange-600 mb-2">
                 24/7
               </div>
-              <div className="text-gray-600">在线服务</div>
+              <div className="text-sm md:text-base text-gray-600">在线服务</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
               为什么选择 IdeaBox
             </h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              我们致力于为创作者提供最优质的创意生成服务
+            <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
+              我们致力于为每一位创作者提供最好的创意工具和服务
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Zap className="h-8 w-8 text-blue-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">快速生成</h3>
-              <p className="text-gray-600">
-                先进的AI技术，秒级响应，快速生成高质量创意内容
-              </p>
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                  <Zap className="h-6 w-6 text-blue-600" />
+                </div>
+                <CardTitle className="text-lg md:text-xl">极速生成</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm md:text-base">
+                  借助先进的 AI 技术，在几秒钟内生成高质量的创意内容，大幅提升工作效率。
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Target className="h-8 w-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">精准匹配</h3>
-              <p className="text-gray-600">
-                基于行业特点和用户需求，提供个性化的创意解决方案
-              </p>
-            </div>
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                  <Target className="h-6 w-6 text-purple-600" />
+                </div>
+                <CardTitle className="text-lg md:text-xl">精准定位</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm md:text-base">
+                  根据你的行业、目标受众和品牌调性，生成最符合需求的创意内容。
+                </CardDescription>
+              </CardContent>
+            </Card>
 
-            <div className="text-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold mb-2">社区驱动</h3>
-              <p className="text-gray-600">
-                活跃的创作者社区，分享灵感，互相启发，共同成长
-              </p>
-            </div>
+            <Card className="hover:shadow-lg transition-shadow duration-300">
+              <CardHeader>
+                <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                  <Users className="h-6 w-6 text-green-600" />
+                </div>
+                <CardTitle className="text-lg md:text-xl">团队协作</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <CardDescription className="text-sm md:text-base">
+                  支持多人协作编辑，实时同步创意内容，让团队创作更加高效便捷。
+                </CardDescription>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+      <section className="py-12 md:py-20 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            准备好释放你的创意潜能了吗？
-          </h2>
-          <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-            加入数千名创作者的行列，让AI成为你的创意伙伴，开始你的创意之旅
-          </p>
-          <Button size="lg" variant="secondary" className="px-8">
-            <TrendingUp className="mr-2 h-5 w-5" />
-            立即开始创作
-          </Button>
+          <div className="max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-white mb-4 md:mb-6">
+              开启你的创意之旅
+            </h2>
+            <p className="text-lg md:text-xl text-blue-100 mb-6 md:mb-8 px-4">
+              立即注册，体验 AI 驱动的创意生成工具
+            </p>
+            <div className="flex flex-col sm:flex-row justify-center gap-4 px-4">
+              <Button size="lg" variant="secondary" className="px-6 md:px-8 py-3 md:py-4 text-base md:text-lg w-full sm:w-auto">
+                <Sparkles className="mr-2 h-4 w-4 md:h-5 md:w-5" />
+                免费开始使用
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-6 md:px-8 py-3 md:py-4 text-base md:text-lg border-white text-white hover:bg-white hover:text-blue-600 w-full sm:w-auto"
+              >
+                了解更多功能
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
