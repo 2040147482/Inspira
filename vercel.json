@@ -1,0 +1,17 @@
+{
+    "build": {
+        "env": {
+            "NEXT_TELEMETRY_DISABLED": "1"
+        }
+    },
+    "functions": {
+        "app/**/*.{js,ts,jsx,tsx}": {
+            "maxDuration": 30
+        }
+    },
+    "regions": [
+        "hkg1",
+        "sin1",
+        "syd1"
+    ]
+}

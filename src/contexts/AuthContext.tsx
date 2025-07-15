@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react'
 import { User, Session, AuthError } from '@supabase/supabase-js'
-import { createClient } from '@/lib/supabase'
+import { createClient, isSupabaseConfigured } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
 
 interface AuthContextType {
@@ -22,20 +22,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null)
     const [session, setSession] = useState<Session | null>(null)
     const [loading, setLoading] = useState(true)
-    const [isSupabaseConfigured, setIsSupabaseConfigured] = useState(false)
     const router = useRouter()
 
     useEffect(() => {
-        const supabase = createClient()
-
-        if (!supabase) {
-            console.warn('Supabase未配置，认证功能已禁用')
-            setIsSupabaseConfigured(false)
+        // 如果 Supabase 未配置，跳过认证设置
+        if (!isSupabaseConfigured) {
             setLoading(false)
             return
         }
 
-        setIsSupabaseConfigured(true)
+        const supabase = createClient()
 
         // 获取初始会话
         supabase.auth.getSession().then(({ data: { session } }) => {
