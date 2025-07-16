@@ -5,11 +5,12 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'placeholder-key'
 
 // 检查是否为真实的配置
-const isConfigured =
+const isConfigured = Boolean(
     process.env.NEXT_PUBLIC_SUPABASE_URL &&
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY &&
     !process.env.NEXT_PUBLIC_SUPABASE_URL.includes('placeholder') &&
     !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY.includes('placeholder')
+)
 
 if (!isConfigured) {
     console.warn('⚠️ Supabase环境变量未配置，认证功能将不可用')
