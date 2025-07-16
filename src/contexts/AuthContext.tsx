@@ -33,6 +33,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
         const supabase = createClient()
 
+        // 如果 Supabase 客户端创建失败，跳过
+        if (!supabase) {
+            setLoading(false)
+            return
+        }
+
         // 获取初始会话
         supabase.auth.getSession().then(({ data: { session } }) => {
             setSession(session)
@@ -55,7 +61,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             }
         })
 
-        return () => subscription.unsubscribe()
+        return () => subscription?.unsubscribe()
     }, [router])
 
     const signIn = async (email: string, password: string) => {

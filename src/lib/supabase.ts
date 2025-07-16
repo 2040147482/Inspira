@@ -1,4 +1,4 @@
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { createClient as createSupabaseClient, SupabaseClient } from '@supabase/supabase-js'
 
 // 环境变量检查，提供默认值以支持构建
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://placeholder.supabase.co'
@@ -23,7 +23,7 @@ if (!isConfigured) {
 }
 
 // 客户端组件使用的Supabase客户端
-export function createClient() {
+export function createClient(): SupabaseClient | null {
     // 如果环境变量未配置，返回null而不是抛出错误
     if (!isConfigured) {
         return null
