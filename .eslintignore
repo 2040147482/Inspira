@@ -1,0 +1,14 @@
+node_modules/
+.next/
+.vercel/
+out/
+build/
+dist/
+*.config.js
+*.config.ts
+public/
+.env*
+.git/
+.vscode/
+.cursor/
+.taskmaster/ 

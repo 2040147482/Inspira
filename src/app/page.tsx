@@ -14,7 +14,6 @@ import {
   Zap,
   Target,
   Users,
-  TrendingUp,
 } from 'lucide-react';
 
 export default function HomePage() {

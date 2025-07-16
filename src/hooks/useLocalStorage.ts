@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-type SetValue<T> = T | ((val: T) => T);
+type SetValue<T> = T | ((_val: T) => T);
 
 function useLocalStorage<T>(
     key: string,

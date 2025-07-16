@@ -18,7 +18,7 @@ import {
     Crown,
     Star,
     Users,
-    Clock,
+
     Shield,
     Headphones,
 } from 'lucide-react';
@@ -144,8 +144,8 @@ export default function PricingPage() {
                             <Card
                                 key={index}
                                 className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${plan.popular
-                                        ? 'border-purple-200 shadow-lg ring-2 ring-purple-100'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                    ? 'border-purple-200 shadow-lg ring-2 ring-purple-100'
+                                    : 'border-gray-200 hover:border-gray-300'
                                     }`}
                             >
                                 {plan.popular && (

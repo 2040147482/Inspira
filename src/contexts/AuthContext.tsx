@@ -10,10 +10,10 @@ interface AuthContextType {
     session: Session | null
     loading: boolean
     isSupabaseConfigured: boolean
-    signIn: (email: string, password: string) => Promise<{ data: any; error: AuthError | null }>
-    signUp: (email: string, password: string, userData?: any) => Promise<{ data: any; error: AuthError | null }>
+    signIn: (_email: string, _password: string) => Promise<{ data: any; error: AuthError | null }>
+    signUp: (_email: string, _password: string, _userData?: any) => Promise<{ data: any; error: AuthError | null }>
     signOut: () => Promise<{ error: AuthError | null }>
-    resetPassword: (email: string) => Promise<{ data: any; error: AuthError | null }>
+    resetPassword: (_email: string) => Promise<{ data: any; error: AuthError | null }>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)

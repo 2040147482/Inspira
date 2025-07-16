@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
  * 健康检查端点
  * GET /api/health
  */
-export async function GET(request: NextRequest) {
+export async function GET(_request: NextRequest) {
     try {
         return NextResponse.json({
             status: 'ok',

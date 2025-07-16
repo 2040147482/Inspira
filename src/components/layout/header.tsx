@@ -10,9 +10,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -35,7 +32,6 @@ import {
   Palette,
   Megaphone,
   Shuffle,
-  Star,
   Users,
   MessageCircle,
   Image,
@@ -44,7 +40,6 @@ import {
   FileText,
   Compass,
   Menu,
-  X,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuth } from '@/contexts/AuthContext';

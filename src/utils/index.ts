@@ -20,7 +20,7 @@ export function sleep(ms: number): Promise<void> {
 }
 
 // 防抖函数
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (..._args: any[]) => any>(
     func: T,
     delay: number
 ): (...args: Parameters<T>) => void {
@@ -32,7 +32,7 @@ export function debounce<T extends (...args: any[]) => any>(
 }
 
 // 节流函数
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (..._args: any[]) => any>(
     func: T,
     delay: number
 ): (...args: Parameters<T>) => void {
