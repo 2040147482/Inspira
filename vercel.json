@@ -10,8 +10,6 @@
         }
     },
     "regions": [
-        "hkg1",
-        "sin1",
-        "syd1"
+        "hkg1"
     ]
 }
