@@ -31,10 +31,10 @@ export default function LoginPage() {
         }
     }, [searchParams])
 
-    // 如果用户已登录，自动跳转到 dashboard
+    // 如果用户已登录，自动跳转到首页
     useEffect(() => {
         if (!authLoading && user) {
-            router.push('/dashboard')
+            router.push('/')
         }
     }, [user, authLoading, router])
 
@@ -53,7 +53,7 @@ export default function LoginPage() {
                 setSuccess('登录成功！正在跳转...')
                 // 使用更短的延迟，并确保跳转
                 setTimeout(() => {
-                    router.push('/dashboard')
+                    router.push('/')
                 }, 500)
             }
         } catch (err) {

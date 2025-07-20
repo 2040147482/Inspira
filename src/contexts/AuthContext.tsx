@@ -57,9 +57,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
             // 处理认证状态变化
             if (event === 'SIGNED_IN' && session?.user) {
-                console.log('用户登录成功，准备跳转到 dashboard')
-                // 登录成功后跳转到 dashboard
-                router.push('/dashboard')
+                console.log('用户登录成功，准备跳转到首页')
+                // 登录成功后跳转到首页
+                router.push('/')
             } else if (event === 'SIGNED_OUT') {
                 console.log('用户退出登录，跳转到首页')
                 router.push('/')
