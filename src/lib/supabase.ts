@@ -24,14 +24,14 @@ if (!isConfigured) {
 }
 
 // 客户端组件使用的Supabase客户端
-export function createClient(): SupabaseClient | null {
+export function createClient(): SupabaseClient<Database> | null {
     // 如果环境变量未配置，返回null而不是抛出错误
     if (!isConfigured) {
         return null
     }
 
     try {
-        const client = createSupabaseClient(supabaseUrl, supabaseAnonKey, {
+        const client = createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey, {
             auth: {
                 autoRefreshToken: true,
                 persistSession: true,
@@ -49,7 +49,7 @@ export function createClient(): SupabaseClient | null {
 // 导出配置状态
 export const isSupabaseConfigured = isConfigured
 
-// 数据库类型定义
+// 完整的数据库类型定义
 export type Database = {
     public: {
         Tables: {
@@ -59,6 +59,9 @@ export type Database = {
                     username: string | null
                     full_name: string | null
                     avatar_url: string | null
+                    bio: string | null
+                    website: string | null
+                    location: string | null
                     subscription_tier: 'free' | 'pro' | 'enterprise'
                     created_at: string
                     updated_at: string
@@ -68,6 +71,9 @@ export type Database = {
                     username?: string | null
                     full_name?: string | null
                     avatar_url?: string | null
+                    bio?: string | null
+                    website?: string | null
+                    location?: string | null
                     subscription_tier?: 'free' | 'pro' | 'enterprise'
                     created_at?: string
                     updated_at?: string
@@ -77,6 +83,9 @@ export type Database = {
                     username?: string | null
                     full_name?: string | null
                     avatar_url?: string | null
+                    bio?: string | null
+                    website?: string | null
+                    location?: string | null
                     subscription_tier?: 'free' | 'pro' | 'enterprise'
                     created_at?: string
                     updated_at?: string
@@ -90,6 +99,7 @@ export type Database = {
                     content: string
                     category: string
                     tags: string[] | null
+                    is_public: boolean
                     created_at: string
                     updated_at: string
                 }
@@ -100,6 +110,7 @@ export type Database = {
                     content: string
                     category: string
                     tags?: string[] | null
+                    is_public?: boolean
                     created_at?: string
                     updated_at?: string
                 }
@@ -110,10 +121,219 @@ export type Database = {
                     content?: string
                     category?: string
                     tags?: string[] | null
+                    is_public?: boolean
                     created_at?: string
                     updated_at?: string
                 }
             }
+            inspiration_maps: {
+                Row: {
+                    id: string
+                    user_id: string
+                    title: string
+                    description: string | null
+                    nodes: any
+                    edges: any
+                    is_public: boolean
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    title: string
+                    description?: string | null
+                    nodes?: any
+                    edges?: any
+                    is_public?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    title?: string
+                    description?: string | null
+                    nodes?: any
+                    edges?: any
+                    is_public?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            community_posts: {
+                Row: {
+                    id: string
+                    user_id: string
+                    title: string
+                    content: string
+                    category: string
+                    tags: string[] | null
+                    likes_count: number
+                    comments_count: number
+                    views_count: number
+                    is_featured: boolean
+                    status: 'draft' | 'published' | 'archived'
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    title: string
+                    content: string
+                    category: string
+                    tags?: string[] | null
+                    likes_count?: number
+                    comments_count?: number
+                    views_count?: number
+                    is_featured?: boolean
+                    status?: 'draft' | 'published' | 'archived'
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    title?: string
+                    content?: string
+                    category?: string
+                    tags?: string[] | null
+                    likes_count?: number
+                    comments_count?: number
+                    views_count?: number
+                    is_featured?: boolean
+                    status?: 'draft' | 'published' | 'archived'
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            comments: {
+                Row: {
+                    id: string
+                    user_id: string
+                    post_id: string
+                    parent_id: string | null
+                    content: string
+                    likes_count: number
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    post_id: string
+                    parent_id?: string | null
+                    content: string
+                    likes_count?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    post_id?: string
+                    parent_id?: string | null
+                    content?: string
+                    likes_count?: number
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
+            likes: {
+                Row: {
+                    id: string
+                    user_id: string
+                    target_type: 'post' | 'comment' | 'inspiration'
+                    target_id: string
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    target_type: 'post' | 'comment' | 'inspiration'
+                    target_id: string
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    target_type?: 'post' | 'comment' | 'inspiration'
+                    target_id?: string
+                    created_at?: string
+                }
+            }
+            user_sessions: {
+                Row: {
+                    id: string
+                    user_id: string
+                    session_type: 'title_generator' | 'brand_namer' | 'slogan_generator' | 'creative_prompter' | 'ai_assistant' | 'image_prompt' | 'rewriter' | 'title_optimizer' | 'inspiration_map' | 'timeline'
+                    session_data: any
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    session_type: 'title_generator' | 'brand_namer' | 'slogan_generator' | 'creative_prompter' | 'ai_assistant' | 'image_prompt' | 'rewriter' | 'title_optimizer' | 'inspiration_map' | 'timeline'
+                    session_data?: any
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    session_type?: 'title_generator' | 'brand_namer' | 'slogan_generator' | 'creative_prompter' | 'ai_assistant' | 'image_prompt' | 'rewriter' | 'title_optimizer' | 'inspiration_map' | 'timeline'
+                    session_data?: any
+                    created_at?: string
+                }
+            }
+            inspiration_timeline: {
+                Row: {
+                    id: string
+                    user_id: string
+                    event_type: string
+                    title: string
+                    description: string | null
+                    metadata: any
+                    created_at: string
+                }
+                Insert: {
+                    id?: string
+                    user_id: string
+                    event_type: string
+                    title: string
+                    description?: string | null
+                    metadata?: any
+                    created_at?: string
+                }
+                Update: {
+                    id?: string
+                    user_id?: string
+                    event_type?: string
+                    title?: string
+                    description?: string | null
+                    metadata?: any
+                    created_at?: string
+                }
+            }
+        }
+        Views: {
+            [_ in never]: never
+        }
+        Functions: {
+            [_ in never]: never
+        }
+        Enums: {
+            [_ in never]: never
         }
     }
-} 
+}
+
+// 导出常用的类型别名
+export type Profile = Database['public']['Tables']['profiles']['Row']
+export type SavedInspiration = Database['public']['Tables']['saved_inspirations']['Row']
+export type InspirationMap = Database['public']['Tables']['inspiration_maps']['Row']
+export type CommunityPost = Database['public']['Tables']['community_posts']['Row']
+export type Comment = Database['public']['Tables']['comments']['Row']
+export type Like = Database['public']['Tables']['likes']['Row']
+export type UserSession = Database['public']['Tables']['user_sessions']['Row']
+export type InspirationTimeline = Database['public']['Tables']['inspiration_timeline']['Row'] 

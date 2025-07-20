@@ -1,4 +1,4 @@
-# IdeaBox - 灵感火花工具箱
+# Inspira - 灵感火花工具箱
 
 为内容创作者、品牌从业者、营销人和自由撰稿人提供一站式创意生成工具
 
@@ -27,14 +27,14 @@
 
 ### 1. 克隆项目
 
-\`\`\`bash
+```bash
 git clone <your-repo-url>
-cd ideabox
-\`\`\`
+cd Inspira
+```
 
 ### 2. 安装依赖
 
-\`\`\`bash
+```bash
 npm install
 
 # 或
@@ -44,41 +44,48 @@ yarn install
 # 或
 
 pnpm install
-\`\`\`
+```
 
 ### 3. 环境变量配置
 
-创建 \`.env.local\` 文件并配置以下环境变量：
+创建 `.env.local` 文件并配置以下环境变量：
 
-\`\`\`bash
-
+```bash
 # 应用配置
-
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_APP_NAME=IdeaBox
+NEXT_PUBLIC_APP_NAME=Inspira
 
-# OpenAI API
-
-OPENAI_API_KEY=your_openai_api_key_here
-
-# Supabase 配置
-
+# Supabase 配置 (必需)
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
-# 数据库
+# OpenAI API (可选，用于 AI 功能)
+OPENAI_API_KEY=your_openai_api_key_here
+```
 
-DATABASE_URL=your_database_connection_string
+### 4. Supabase 配置
 
-# JWT Secret
+项目已包含完整的 Supabase 配置，包括：
 
-JWT_SECRET=your_jwt_secret_key
-\`\`\`
+- ✅ 数据库表结构 (用户配置、收藏夹、社区等)
+- ✅ 行级安全策略 (RLS)
+- ✅ 认证系统配置
+- ✅ 类型定义和工具函数
 
-### 4. 启动开发服务器
+**快速设置步骤：**
 
-\`\`\`bash
+1. 访问 [Supabase](https://supabase.com) 创建新项目
+2. 获取项目 URL 和 anon key
+3. 在 Supabase Dashboard 的 SQL Editor 中执行迁移文件：
+   - `supabase/migrations/20240101000000_initial_schema.sql`
+   - `supabase/migrations/20240101000001_complete_schema.sql`
+4. 配置认证重定向 URL
+
+详细配置指南请参考：[Supabase 配置文档](./docs/SUPABASE_SETUP.md)
+
+### 5. 启动开发服务器
+
+```bash
 npm run dev
 
 # 或
@@ -88,39 +95,40 @@ yarn dev
 # 或
 
 pnpm dev
-\`\`\`
+```
 
 打开 [http://localhost:3000](http://localhost:3000) 查看应用。
 
 ## 🔧 开发命令
 
-- \`npm run dev\` - 启动开发服务器
-- \`npm run build\` - 构建生产版本
-- \`npm run start\` - 启动生产服务器
-- \`npm run lint\` - 运行 ESLint
-- \`npm run type-check\` - TypeScript 类型检查
-- \`npm run format\` - 格式化代码
-- \`npm run format:check\` - 检查代码格式
+- `npm run dev` - 启动开发服务器
+- `npm run build` - 构建生产版本
+- `npm run start` - 启动生产服务器
+- `npm run lint` - 运行 ESLint
+- `npm run type-check` - TypeScript 类型检查
+- `npm run format` - 格式化代码
+- `npm run format:check` - 检查代码格式
 
 ## 📁 项目结构
 
-\`\`\`
+```
 Inspira/
 ├── .cursor/                     # Cursor IDE 配置
 │   └── rules/                   # 开发规则和指南
-│       └── nextjs_structure.mdc # Next.js 项目结构规则
+├── .taskmaster/                 # Taskmaster 项目管理
+│   ├── tasks/                   # 任务文件
+│   └── docs/                    # 项目文档
 ├── docs/                        # 项目文档
-│   └── PROJECT_STRUCTURE.md     # 项目结构说明
+│   ├── PROJECT_STRUCTURE.md     # 项目结构说明
+│   └── SUPABASE_SETUP.md        # Supabase 配置指南
 ├── public/                      # 静态资源
 │   ├── manifest.json            # PWA 配置
 │   └── robots.txt               # SEO 配置
 ├── src/                         # 源代码目录
 │   ├── app/                     # App Router 页面和布局
 │   │   ├── api/                 # API 路由
-│   │   │   └── health/          # 健康检查端点
 │   │   ├── auth/                # 认证相关页面
-│   │   │   ├── login/           # 登录页
-│   │   │   └── register/        # 注册页
+│   │   ├── pricing/             # 定价页面
 │   │   ├── error.tsx            # 全局错误页面
 │   │   ├── loading.tsx          # 全局加载页面
 │   │   ├── not-found.tsx        # 404 页面
@@ -128,52 +136,83 @@ Inspira/
 │   │   └── page.tsx             # 首页
 │   ├── components/              # 可重用组件
 │   │   ├── ui/                  # 基础 UI 组件
-│   │   └── error-boundary.tsx   # 错误边界组件
+│   │   └── layout/              # 布局组件
 │   ├── constants/               # 常量定义
-│   │   └── index.ts             # 应用常量
 │   ├── contexts/                # React Context
 │   │   └── AuthContext.tsx      # 认证上下文
 │   ├── hooks/                   # 自定义 Hooks
-│   │   ├── useLocalStorage.ts   # 本地存储 Hook
-│   │   └── index.ts             # Hooks 统一导出
 │   ├── lib/                     # 库文件和配置
-│   │   ├── env.ts               # 环境变量验证
 │   │   ├── supabase.ts          # Supabase 客户端配置
-│   │   └── supabase-server.ts   # Supabase 服务端配置
+│   │   └── database.ts          # 数据库操作工具
 │   ├── styles/                  # 样式文件
-│   │   └── globals.css          # 全局样式
 │   ├── types/                   # TypeScript 类型定义
-│   │   └── database.types.ts    # 数据库类型
-│   ├── utils/                   # 工具函数
-│   │   ├── cn.ts                # 类名合并工具
-│   │   ├── format.ts            # 格式化工具
-│   │   └── index.ts             # 工具函数统一导出
-│   └── middleware.ts            # Next.js 中间件
+│   └── utils/                   # 工具函数
 ├── supabase/                    # Supabase 配置
 │   ├── migrations/              # 数据库迁移文件
-│   │   └── 20240101000000_initial_schema.sql
+│   │   ├── 20240101000000_initial_schema.sql
+│   │   └── 20240101000001_complete_schema.sql
 │   └── config.toml              # Supabase 配置文件
-├── .env.example                 # 环境变量示例
-├── .env.local                   # 本地环境变量（需要创建）
+├── env.example                  # 环境变量示例
 ├── next.config.js               # Next.js 配置
 ├── tailwind.config.js           # Tailwind CSS 配置
 ├── tsconfig.json                # TypeScript 配置
 └── package.json                 # 项目依赖和脚本
-\`\`\`
+```
 
-> 📋 这个项目结构严格遵循 [Next.js 官方项目结构指南](https://nextjs.org/docs/app/getting-started/project-structure) 和 [task-app](https://github.com/pixegami/task-app) 最佳实践。
+> 📋 这个项目结构严格遵循 [Next.js 官方项目结构指南](https://nextjs.org/docs/app/getting-started/project-structure) 和最佳实践。
 
-## 🎯 开发路线图
+## 🎯 开发进度
 
+### ✅ 已完成
 - [x] 项目基础架构搭建
-- [ ] UI 组件库和设计系统
-- [ ] Supabase 后端服务配置
+- [x] UI 组件库和设计系统 (shadcn/ui)
+- [x] Supabase 后端服务配置
+- [x] 用户认证系统
+- [x] 响应式设计和移动端适配
+- [x] 定价页面
+- [x] 项目部署配置
+
+### 🔄 进行中
 - [ ] OpenAI API 集成
-- [ ] 用户认证和权限管理
 - [ ] 核心功能开发
-- [ ] 社区功能
-- [ ] 性能优化
-- [ ] 部署和 CI/CD
+
+### 📋 待开发
+- [ ] 爆款标题生成器
+- [ ] 品牌命名器
+- [ ] 广告语生成器
+- [ ] 随机创意提示器
+- [ ] 灵感收藏夹
+- [ ] 灵感广场社区
+- [ ] AI 灵感助手
+- [ ] 图像提示词生成器
+- [ ] 创意改写器
+- [ ] 标题优化器
+
+## 🗄️ 数据库架构
+
+项目使用 Supabase PostgreSQL 数据库，包含以下主要表：
+
+- **profiles** - 用户配置信息
+- **saved_inspirations** - 灵感收藏夹
+- **inspiration_maps** - 灵感图谱
+- **community_posts** - 社区内容
+- **comments** - 评论系统
+- **likes** - 点赞记录
+- **user_sessions** - 用户会话
+- **inspiration_timeline** - 灵感时间线
+
+所有表都启用了行级安全策略 (RLS)，确保数据安全。
+
+## 🚀 部署
+
+### Vercel 部署 (推荐)
+
+1. 将代码推送到 GitHub
+2. 在 Vercel 中导入项目
+3. 配置环境变量
+4. 部署
+
+详细部署指南请参考：[部署文档](./DEPLOYMENT.md)
 
 ## 🤝 贡献指南
 
