@@ -1,34 +1,29 @@
 // 统一导出所有UI组件
-// 注意：这些组件需要根据实际项目需求来创建
 
 // 基础组件
-// export { Button } from './button';
-// export { Input } from './input';
-// export { Label } from './label';
-// export { Card, CardContent, CardHeader, CardTitle } from './card';
+export { Button } from './button';
+export { Input } from './input';
+export { Label } from './label';
+export { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from './card';
 
 // 表单组件
-// export { Checkbox } from './checkbox';
-// export { RadioGroup, RadioGroupItem } from './radio-group';
-// export { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './select';
+export { Checkbox } from './checkbox';
 
 // 反馈组件
-// export { Toast, ToastProvider, useToast } from './toast';
-// export { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from './dialog';
-// export { Popover, PopoverContent, PopoverTrigger } from './popover';
+export { Alert, AlertDescription } from './alert';
 
 // 导航组件
-// export { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
-// export { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
+export { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from './dropdown-menu';
 
 // 数据展示组件
-// export { Avatar, AvatarFallback, AvatarImage } from './avatar';
-// export { Badge } from './badge';
-// export { Separator } from './separator';
+export { Avatar, AvatarFallback, AvatarImage } from './avatar';
+export { Badge } from './badge';
+export { Separator } from './separator';
 
 // 布局组件
-// export { Container } from './container';
-// export { Grid } from './grid';
+export { Container } from './container';
+export { Section } from './section';
 
-// 当前项目已有的 Radix UI 组件可以在这里导出
-// 这些需要根据实际安装的组件来调整 
+// 特殊组件
+export { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from './sheet';
+export { PasswordStrength } from './password-strength'; 

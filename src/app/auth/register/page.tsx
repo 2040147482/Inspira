@@ -9,8 +9,11 @@ import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Lightbulb, Eye, EyeOff, Loader2, CheckCircle } from 'lucide-react'
+import { Lightbulb, Eye, EyeOff, Loader2, CheckCircle, X } from 'lucide-react'
 import { useAuth } from '@/contexts/AuthContext'
+import { PasswordStrength } from '@/components/ui/password-strength'
+import { validatePassword } from '@/utils/password'
+import { cn } from '@/lib/utils'
 
 export default function RegisterPage() {
     const [formData, setFormData] = useState({
@@ -43,8 +46,10 @@ export default function RegisterPage() {
             return false
         }
 
-        if (formData.password.length < 6) {
-            setError('密码长度至少需要6位')
+        // 使用新的密码验证
+        const passwordValidation = validatePassword(formData.password)
+        if (!passwordValidation.isValid) {
+            setError('密码不符合要求：' + passwordValidation.errors.join('，'))
             return false
         }
 
@@ -174,12 +179,12 @@ export default function RegisterPage() {
                                         id="password"
                                         name="password"
                                         type={showPassword ? 'text' : 'password'}
-                                        placeholder="至少6位密码"
+                                        placeholder="输入符合要求的密码"
                                         value={formData.password}
                                         onChange={handleInputChange}
                                         required
                                         disabled={loading}
-                                        minLength={6}
+                                        minLength={8}
                                     />
                                     <Button
                                         type="button"
@@ -196,6 +201,19 @@ export default function RegisterPage() {
                                         )}
                                     </Button>
                                 </div>
+
+                                {/* 密码强度指示器 */}
+                                {formData.password && (
+                                    <PasswordStrength
+                                        password={formData.password}
+                                        className="mt-2"
+                                    />
+                                )}
+
+                                {/* 密码要求提示 */}
+                                <p className="text-xs text-muted-foreground mt-1">
+                                    密码长度至少为8个字符，应至少包含以下各类字符中的一个：小写字母 (a-z)、大写字母 (A-Z)、数字 (0-9)、特殊字符 (!@#$%^&*()_+-=[]{ };\':"|&lt;&gt;?,./`~)
+                                </p>
                             </div>
 
                             <div className="space-y-2">
@@ -226,6 +244,28 @@ export default function RegisterPage() {
                                         )}
                                     </Button>
                                 </div>
+
+                                {/* 密码匹配提示 */}
+                                {formData.confirmPassword && (
+                                    <div className="flex items-center space-x-2 mt-1">
+                                        {formData.password === formData.confirmPassword ? (
+                                            <CheckCircle className="h-3 w-3 text-green-500" />
+                                        ) : (
+                                            <X className="h-3 w-3 text-red-500" />
+                                        )}
+                                        <span className={cn(
+                                            'text-xs',
+                                            formData.password === formData.confirmPassword
+                                                ? 'text-green-600'
+                                                : 'text-red-600'
+                                        )}>
+                                            {formData.password === formData.confirmPassword
+                                                ? '密码匹配'
+                                                : '密码不匹配'
+                                            }
+                                        </span>
+                                    </div>
+                                )}
                             </div>
 
                             <div className="flex items-center space-x-2">
