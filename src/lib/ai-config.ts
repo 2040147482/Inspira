@@ -86,12 +86,13 @@ export const DEFAULT_MODELS: Record<string, AIModelConfig> = {
 
 // 获取 AI 配置
 export function getAIConfig(): AIProviderConfig {
-    const deepseekApiKey = process.env.DEEPSEEK_API_KEY;
-    const tongyiApiKey = process.env.TONGYI_API_KEY;
+    // 在构建时，环境变量可能不可用，提供默认值
+    const deepseekApiKey = process.env.DEEPSEEK_API_KEY || '';
+    const tongyiApiKey = process.env.TONGYI_API_KEY || '';
 
     return {
         deepseek: {
-            apiKey: deepseekApiKey || '',
+            apiKey: deepseekApiKey,
             baseUrl: 'https://api.deepseek.com/v1',
             models: {
                 chat: 'deepseek-chat',
@@ -99,7 +100,7 @@ export function getAIConfig(): AIProviderConfig {
             },
         },
         tongyi: {
-            apiKey: tongyiApiKey || '',
+            apiKey: tongyiApiKey,
             baseUrl: 'https://dashscope.aliyuncs.com/api/v1',
             models: {
                 qwen: 'qwen-turbo',
@@ -110,8 +111,18 @@ export function getAIConfig(): AIProviderConfig {
     };
 }
 
+// 检查是否在构建时
+function isBuildTime(): boolean {
+    return process.env.NODE_ENV === 'production' && !process.env.NEXT_PUBLIC_SUPABASE_URL;
+}
+
 // 获取可用模型列表
 export function getAvailableModels(): AIModelConfig[] {
+    // 在构建时返回空数组，避免环境变量问题
+    if (isBuildTime()) {
+        return [];
+    }
+
     const config = getAIConfig();
     const availableModels: AIModelConfig[] = [];
 
@@ -131,6 +142,11 @@ export function getAvailableModels(): AIModelConfig[] {
 
 // 获取默认模型
 export function getDefaultModel(): AIModelConfig {
+    // 在构建时返回默认模型
+    if (isBuildTime()) {
+        return DEFAULT_MODELS['qwen-turbo'];
+    }
+
     const availableModels = getAvailableModels();
 
     // 优先使用通义千问，然后是 DeepSeek
@@ -144,6 +160,6 @@ export function getDefaultModel(): AIModelConfig {
         return deepseekModel;
     }
 
-    // 如果没有可用的模型，返回一个默认配置（用于构建时）
+    // 如果没有可用的模型，返回一个默认配置
     return DEFAULT_MODELS['qwen-turbo'];
 } 
