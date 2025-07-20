@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState, useMemo } from 'react'
 import { User, Session, AuthError } from '@supabase/supabase-js'
 import { createClient, isSupabaseConfigured } from '@/lib/supabase'
 import { useRouter } from 'next/navigation'
@@ -24,17 +24,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState(true)
     const router = useRouter()
 
+    // 使用 useMemo 缓存 Supabase 客户端，避免重复创建
+    const supabase = useMemo(() => {
+        if (!isSupabaseConfigured) {
+            return null
+        }
+        return createClient()
+    }, [])
+
     useEffect(() => {
         // 如果 Supabase 未配置，跳过认证设置
-        if (!isSupabaseConfigured) {
-            setLoading(false)
-            return
-        }
-
-        const supabase = createClient()
-
-        // 如果 Supabase 客户端创建失败，跳过
-        if (!supabase) {
+        if (!isSupabaseConfigured || !supabase) {
             setLoading(false)
             return
         }
@@ -62,10 +62,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         })
 
         return () => subscription?.unsubscribe()
-    }, [router])
+    }, [supabase, router])
 
     const signIn = async (email: string, password: string) => {
-        const supabase = createClient()
         if (!supabase) {
             return { data: null, error: { message: 'Supabase未配置' } as AuthError }
         }
@@ -111,7 +110,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const signUp = async (email: string, password: string, userData: any = {}) => {
-        const supabase = createClient()
         if (!supabase) {
             return { data: null, error: { message: 'Supabase未配置' } as AuthError }
         }
@@ -152,7 +150,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const signOut = async () => {
-        const supabase = createClient()
         if (!supabase) {
             return { error: { message: 'Supabase未配置' } as AuthError }
         }
@@ -164,7 +161,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
 
     const resetPassword = async (email: string) => {
-        const supabase = createClient()
         if (!supabase) {
             return { data: null, error: { message: 'Supabase未配置' } as AuthError }
         }

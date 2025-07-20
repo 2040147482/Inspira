@@ -23,6 +23,9 @@ if (!isConfigured) {
     console.log('Key开头:', supabaseAnonKey.substring(0, 20) + '...')
 }
 
+// 单例 Supabase 客户端实例
+let supabaseClient: SupabaseClient<Database> | null = null
+
 // 客户端组件使用的Supabase客户端
 export function createClient(): SupabaseClient<Database> | null {
     // 如果环境变量未配置，返回null而不是抛出错误
@@ -30,8 +33,13 @@ export function createClient(): SupabaseClient<Database> | null {
         return null
     }
 
+    // 如果已经创建过客户端，直接返回
+    if (supabaseClient) {
+        return supabaseClient
+    }
+
     try {
-        const client = createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey, {
+        supabaseClient = createSupabaseClient<Database>(supabaseUrl, supabaseAnonKey, {
             auth: {
                 autoRefreshToken: true,
                 persistSession: true,
@@ -39,7 +47,7 @@ export function createClient(): SupabaseClient<Database> | null {
             }
         })
         console.log('✅ Supabase客户端创建成功')
-        return client
+        return supabaseClient
     } catch (error) {
         console.error('❌ Supabase客户端创建失败:', error)
         return null

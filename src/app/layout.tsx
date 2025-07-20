@@ -29,7 +29,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body className={cn(inter.className, 'min-h-screen antialiased')}>
+      <body
+        className={cn(inter.className, 'min-h-screen antialiased')}
+        suppressHydrationWarning
+      >
         <AuthProvider>
           <div className="relative flex min-h-screen flex-col">
             <Header />
