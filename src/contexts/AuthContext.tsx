@@ -55,9 +55,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(session?.user ?? null)
             setLoading(false)
 
-            // 只在这里处理自动重定向，登录页面的重定向由页面组件处理
-            if (event === 'SIGNED_OUT') {
-                router.push('/auth/login')
+            // 处理认证状态变化
+            if (event === 'SIGNED_IN' && session?.user) {
+                console.log('用户登录成功，准备跳转到 dashboard')
+                // 登录成功后跳转到 dashboard
+                router.push('/dashboard')
+            } else if (event === 'SIGNED_OUT') {
+                console.log('用户退出登录，跳转到首页')
+                router.push('/')
             }
         })
 
@@ -93,6 +98,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                 result.error.message = errorMessage
             } else if (result.data?.user) {
                 console.log('登录成功:', result.data.user)
+                // 登录成功后的跳转由 onAuthStateChange 处理
             }
 
             setLoading(false)

@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,8 +19,24 @@ export default function LoginPage() {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState('')
 
-    const { signIn } = useAuth()
+    const { signIn, user, loading: authLoading } = useAuth()
     const router = useRouter()
+    const searchParams = useSearchParams()
+
+    // 检查 URL 参数中的消息
+    useEffect(() => {
+        const message = searchParams.get('message')
+        if (message === 'registration-success') {
+            setSuccess('注册成功！请使用您的邮箱和密码登录。')
+        }
+    }, [searchParams])
+
+    // 如果用户已登录，自动跳转到 dashboard
+    useEffect(() => {
+        if (!authLoading && user) {
+            router.push('/dashboard')
+        }
+    }, [user, authLoading, router])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -35,16 +51,33 @@ export default function LoginPage() {
                 setError(error.message)
             } else if (data?.user) {
                 setSuccess('登录成功！正在跳转...')
-                // 延迟跳转以显示成功消息
+                // 使用更短的延迟，并确保跳转
                 setTimeout(() => {
                     router.push('/dashboard')
-                }, 1000)
+                }, 500)
             }
         } catch (err) {
             setError('登录时发生错误，请重试')
         } finally {
             setLoading(false)
         }
+    }
+
+    // 如果正在加载认证状态，显示加载界面
+    if (authLoading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
+                <div className="text-center">
+                    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                    <p className="text-gray-600">检查登录状态...</p>
+                </div>
+            </div>
+        )
+    }
+
+    // 如果用户已登录，不显示登录表单
+    if (user) {
+        return null
     }
 
     return (
